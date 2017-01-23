@@ -75,6 +75,21 @@ if [ $# -gt 0 ]; then
             -w $VARWWW \
             node \
             ./node_modules/.bin/gulp "$@"
+
+    # If "log" is used, tail the laravel log file
+    elif [ "$1" == "log" ]; then
+        shift 1
+        tail -f ./storage/logs/laravel.log | awk '\
+            {matched=0}\
+            /INFO:/    {matched=1; print "\033[0;37m" $$0 "\033[0m"}\
+            /WARNING:/ {matched=1; print "\033[0;34m" $$0 "\033[0m"}\
+            /ERROR:/   {matched=1; print "\033[0;31m" $$0 "\033[0m"}\
+            /Next/     {matched=1; print "\033[0;31m" $$0 "\033[0m"}\
+            /ALERT:/   {matched=1; print "\033[0;35m" $$0 "\033[0m"}\
+            /Stack trace:/ {matched=1; print "\033[0;35m" $$0 "\033[0m"}\
+            matched==0            {print "\033[0;33m" $$0 "\033[0m"}\
+        '
+
     # Else, pass-thru args to docker-compose
     else
         $COMPOSE "$@"
