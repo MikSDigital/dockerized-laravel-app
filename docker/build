@@ -1,0 +1,2 @@
+docker build -f app/Dockerfile -t dockerized-laravel-app/app:latest ./app
+docker build -f node/Dockerfile -t dockerized-laravel-app/node:latest ./node
