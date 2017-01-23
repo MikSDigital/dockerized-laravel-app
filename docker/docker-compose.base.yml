@@ -2,20 +2,20 @@ version: '2'
 services:
   app:
     build:
-      context: ./docker/app
+      context: ./app
       dockerfile: Dockerfile
     image: dockerized-laravel-app/app
     volumes:
-     - .:/var/www/html
+     - ../.:/var/www/html
     networks:
      - appnet
   node:
     build:
-      context: ./docker/node
+      context: ./node
       dockerfile: Dockerfile
     image: dockerized-laravel-app/node
     volumes:
-     - .:/var/www/html
+     - ../.:/var/www/html
     networks:
      - appnet
   mysql:

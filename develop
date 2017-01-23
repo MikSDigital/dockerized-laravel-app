@@ -17,13 +17,13 @@ if [ ! -z "$BUILD_NUMBER" ]; then
     TTY="-T"
 fi
 
-COMPOSE="docker-compose -f docker-compose.$COMPOSE_FILE.yml"
+COMPOSE="docker-compose -f ./docker/docker-compose.$COMPOSE_FILE.yml"
 
 # // because we are on windows
 VARWWW="//var//www//html"
 
 # If we pass any arguments...
-if [ $# -gt 0 ];then
+if [ $# -gt 0 ]; then
 
     # If "art" is used, pass-thru to "artisan"
     # inside a new container
