@@ -7,8 +7,6 @@ services:
     image: dockerized-laravel-app/app
     volumes:
      - .:/var/www/html
-    ports:
-     - "${APP_PORT}:80"
     networks:
      - appnet
   node:
@@ -22,13 +20,6 @@ services:
      - appnet
   mysql:
     image: mysql:5.7
-    ports:
-     - "${DB_PORT}:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS}"
-      MYSQL_DATABASE: "${DB_NAME}"
-      MYSQL_USER: "${DB_USER}"
-      MYSQL_PASSWORD: "${DB_PASS}"
     volumes:
      - mysqldata:/var/lib/mysql
     networks:
@@ -39,11 +30,3 @@ services:
      - redisdata:/data
     networks:
      - appnet
-networks:
-  appnet:
-    driver: "bridge"
-volumes:
-  mysqldata:
-    driver: "local"
-  redisdata:
-    driver: "local"
